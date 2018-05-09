@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登录</title>
+</head>
+<body>
+	<h2>标准登陆页面</h2>
+	<form action="/authentication/form" method="post">
+		<table>
+			<tr>
+				<td>用户名:</td>
+				<td><input type="text" name="username"></td>
+			</tr>
+			<tr>
+				<td>用户名:</td>
+				<td><input type="text" name="password"></td>
+			</tr>
+			<tr>
+				<td>图形验证码</td>
+				<td>
+					<input type="text" name="imageCode">
+					<img src="/code/image">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="checkbox" name="remember-me" value="true" />记住我</td>
+			</tr>
+			<tr>
+				<td colspan="2"><button type="submit" >登陆</button></td>
+			</tr>
+		</table>
+	</form>
+	
+	<h2>短信登陆</h2>
+	<form action="/authentication/mobile" method="post">
+		<table>
+			<tr>
+				<td>用户名:</td>
+				<td><input type="text" name="mobile" value="13012345678"></td>
+			</tr>
+			<tr>
+				<td>短信验证码:</td>
+				<td><input type="text" name="smsCode">
+					<a href="/code/sms?mobile=13012345678">发送验证码</a>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><button type="submit" >登陆</button></td>
+			</tr>
+		</table>
+	</form>
+	<br>
+	<h3>社交登陆</h3>
+	<!--  在SocialAuthenticationFilter  /auth  会被拦截   /qq  providerId-->
+	<a href="/auth/qq">qq登陆</a>
+	<!-- 同注册回调地址要一致 -->
+	<a href="/qqLogin/callback.do">qq登陆</a>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="/qqLogin/weixin">微信登陆</a>
+</body>
+</html>
