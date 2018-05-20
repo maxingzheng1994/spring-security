@@ -43,4 +43,9 @@ public class QQAutoConfig extends SocialAutoConfigurerAdapter{
 	@Autowired(required = false)
 	private ConnectionSignUp connectionSignUp;
 	
+	@Override
+	public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
+		return null;
+	}
+	
 }

@@ -23,6 +23,11 @@ public interface SecurityConstants {
 	 * 默认的手机验证码登录请求处理url
 	 */
 	public static final String DEFAULT_LOGIN_PROCESSING_URL_MOBILE = "/authentication/mobile";
+	
+	/**
+	 * 处理openId登录请求处理url
+	 */
+	public static final String DEFAULT_LOGIN_PROCESSING_URL_OPENID = "/authentication/openid";
 	/**
 	 * 默认登录页面
 	 * 
@@ -46,4 +51,7 @@ public interface SecurityConstants {
 	 * session失效默认的跳转地址
 	 */
 	public static final String DEFAULT_SESSION_INVALID_URL = "/demo-session-invalid.html";//"/session/invalid";
+
+	public static final String DEFAULT_PARAMETER_NAME_OPENID = "openid";
+	public static final String DEFAULT_PARAMETER_NAME_PROVIDERID = "providerid";
 }
