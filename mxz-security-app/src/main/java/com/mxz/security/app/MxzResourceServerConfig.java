@@ -10,6 +10,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.social.security.SpringSocialConfigurer;
 
+import com.mxz.security.app.social.openid.OpenIdAuthenticationSecurityConfig;
 import com.mxz.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.mxz.security.core.properties.SecurityConstants;
 import com.mxz.security.core.properties.SecurityProperties;
@@ -34,8 +35,14 @@ public class MxzResourceServerConfig extends ResourceServerConfigurerAdapter{
 	private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 	
 	@Autowired
+	private OpenIdAuthenticationSecurityConfig openIdAuthenticationSecurityConfig;
+	
+	@Autowired
 	private SpringSocialConfigurer mxzSocialSecurityConfig;
 		
+	@Autowired
+	private ValidateCodeSecurityConfig validateCodeSecurityConfig;
+	
 	@Autowired
 	private SecurityProperties securityProperties;
 
@@ -46,11 +53,13 @@ public class MxzResourceServerConfig extends ResourceServerConfigurerAdapter{
 		.loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM)
 		.successHandler(mxzAuthenticationSuccessHandler)
 		.failureHandler(mxzAuthenticationFailureHandler);
-		http//.apply(validateCodeSecurityConfig)
-			//	.and()
+		http.apply(validateCodeSecurityConfig)
+				.and()
 			.apply(smsCodeAuthenticationSecurityConfig)
 				.and()
 			.apply(mxzSocialSecurityConfig)
+				.and()
+			.apply(openIdAuthenticationSecurityConfig)
 				.and()
 			.authorizeRequests()
 				.antMatchers(
@@ -58,6 +67,7 @@ public class MxzResourceServerConfig extends ResourceServerConfigurerAdapter{
 						securityProperties.getBrowser().getSignUpPage(),
 						SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
 						SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+						SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_OPENID,
 						SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
 						"/user/regist",
 						"/social/user", 					
