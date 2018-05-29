@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.ServletWebRequest;
 
-import com.mxz.security.browser.support.SocialUserInfo;
 import com.mxz.security.core.properties.SecurityProperties;
 import com.mxz.security.core.support.SimpleResponse;
+import com.mxz.security.core.support.SocialUserInfo;
 
 /*作者：马兴争
  *日期: 2018年4月14日

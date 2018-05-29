@@ -7,14 +7,13 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
  *日期: 2018年5月17日
  *时间： 下午11:07:18
  **/
-public class OpenIdAuthenticationToken extends AbstractAuthenticationToken{
+public class OpenIdAuthenticationToken extends AbstractAuthenticationToken {
 
 	private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
-	
+
 	private final Object principal;
 	private String providerId;
-	
-	
+
 	public String getProviderId() {
 		return providerId;
 	}
@@ -23,11 +22,12 @@ public class OpenIdAuthenticationToken extends AbstractAuthenticationToken{
 		this.providerId = providerId;
 	}
 
-	public OpenIdAuthenticationToken(Object principal,
+	public OpenIdAuthenticationToken(Object openId,
 			String providerId) {
 		super(null);
-		this.principal = principal;
+		this.principal = openId;
 		this.providerId = providerId;
+		setAuthenticated(false);
 	}
 
 	@Override

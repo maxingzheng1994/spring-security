@@ -3,7 +3,6 @@ package com.mxz.security.app;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -45,6 +44,7 @@ public class MxzResourceServerConfig extends ResourceServerConfigurerAdapter{
 	
 	@Autowired
 	private SecurityProperties securityProperties;
+	
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
@@ -70,7 +70,8 @@ public class MxzResourceServerConfig extends ResourceServerConfigurerAdapter{
 						SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_OPENID,
 						SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
 						"/user/regist",
-						"/social/user", 					
+						"/social/user",
+						"/social/signUp",
 						securityProperties.getBrowser().getSession().getSessionInvalidUrl()+".json",
 						securityProperties.getBrowser().getSession().getSessionInvalidUrl()+".html"
 						,securityProperties.getBrowser().getLogOutUrl())

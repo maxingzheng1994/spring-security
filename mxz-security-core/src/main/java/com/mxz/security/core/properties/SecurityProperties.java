@@ -15,6 +15,16 @@ public class SecurityProperties {
 	
 	private SocialProperties social = new SocialProperties();
 	
+	private Oauth2Properties oauth2 = new Oauth2Properties();
+	
+	public Oauth2Properties getOauth2() {
+		return oauth2;
+	}
+
+	public void setOauth2(Oauth2Properties oauth2) {
+		this.oauth2 = oauth2;
+	}
+
 	public SocialProperties getSocial() {
 		return social;
 	}

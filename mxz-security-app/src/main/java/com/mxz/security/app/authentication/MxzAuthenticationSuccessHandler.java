@@ -60,7 +60,7 @@ public class MxzAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 		if (header == null || !header.startsWith("Basic ")) {
 			throw new UnapprovedClientAuthenticationException("请求头中无client信息");
 		}
-
+		// 解码  clientid  secrect
 		String[] tokens = extractAndDecodeHeader(header, request);
 		assert tokens.length == 2;
 
@@ -68,12 +68,14 @@ public class MxzAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 		String clientSecret = tokens[1];
 		ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
 		
+		// 第三方应用没注册
 		if (clientDetails == null) {
 			throw new UnapprovedClientAuthenticationException("client id 对应的配置信息不存在:"+ clientId);
 		} else if (!StringUtils.equals(clientDetails.getClientSecret(), clientSecret)) {
 			throw new UnapprovedClientAuthenticationException("client serect不匹配:"+ clientId);
 		}
 		
+		// 不同模式要穿的参数不一样 授权码 或者用户登陆信息， 但是authentication 已经生成了，可以传个空
 		TokenRequest tokenRequest = new TokenRequest(MapUtils.EMPTY_MAP, clientId, clientDetails.getScope(), "custom");
 		
 		OAuth2Request auth2Request = tokenRequest.createOAuth2Request(clientDetails);

@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,6 +24,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
 import com.mxz.security.browser.session.MxzExpiredSessionStrategy;
 import com.mxz.security.core.authentication.AbstractChannelSecurityConfig;
 import com.mxz.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.mxz.security.core.authorize.AuthorizeConfigManager;
 import com.mxz.security.core.properties.SecurityConstants;
 import com.mxz.security.core.properties.SecurityProperties;
 import com.mxz.security.core.validate.code.ValidateCodeSecurityConfig;
@@ -61,6 +63,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig{
 		
 	@Autowired
 	private LogoutSuccessHandler logoutSuccessHandler;
+	
+	@Autowired
+	private AuthorizeConfigManager authorizeConfigManager; 
 	@Bean
 	public PersistentTokenRepository persistentTokenRepository() {
 		JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
@@ -122,10 +127,13 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig{
 						securityProperties.getBrowser().getSession().getSessionInvalidUrl()+".html"
 						,securityProperties.getBrowser().getLogOutUrl())
 				  		.permitAll()
+				  .antMatchers(HttpMethod.GET,"/user/*").hasRole("ADMIN")
 			.anyRequest()
 			.authenticated()
 			.and()
 		.csrf().disable();
+		
+		authorizeConfigManager.config(http.authorizeRequests());
 	}
 	
 }
