@@ -23,3 +23,5 @@ SociaConfig
 微信登陆
 	
 session 存储
+
+**mxz-security   主模块
