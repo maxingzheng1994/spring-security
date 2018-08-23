@@ -24,4 +24,8 @@ SociaConfig
 	
 session 存储
 
-**mxz-security   主模块
+mxz-security   主模块
+mxz-security-core  核心业务逻辑
+mxz-security-browser  浏览器
+mxz-security-app   app
+mxz-security-demo  样例访问
